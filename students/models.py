@@ -47,7 +47,7 @@ class Student(models.Model):
     # parent_name: text field of up to 30 characters (guardian's full name)
     parent_name = models.CharField(max_length=30)
     # parent_email: email field; unique=True means each guardian email is distinct
-    parent_email = models.EmailField(unique=True)
+    parent_email = models.EmailField(max_length=30,unique=True)
     # parent_phone: guardian's phone; also validated to be exactly 10 digits
     parent_phone = models.CharField(max_length=10, validators=[phone_validator])
 
