@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete {{ student.full_name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card border-danger">
+            <div class="card-header bg-danger bg-opacity-10 border-danger">
+                <h5 class="mb-0 fw-semibold text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Deletion
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="mb-3">Are you sure you want to permanently delete <strong>{{ student.full_name }}</strong>? This action cannot be undone.</p>
+
+                <div class="rounded-3 bg-light p-3 mb-4">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Email</dt>
+                        <dd class="col-sm-8">{{ student.email }}</dd>
+                        <dt class="col-sm-4 text-muted">Grade</dt>
+                        <dd class="col-sm-8">{{ student.get_grade_display }}</dd>
+                        <dt class="col-sm-4 text-muted">Phone</dt>
+                        <dd class="col-sm-8">{{ student.phone|default:'—' }}</dd>
+                    </dl>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash me-1"></i>Yes, Delete Student
+                        </button>
+                        <a href="{% url 'students:student_detail' student.id %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

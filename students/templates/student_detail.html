@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.full_name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <div class="d-flex align-items-center gap-3">
+        <div class="rounded-3 bg-primary bg-opacity-10 p-3"><i class="bi bi-person-badge-fill fs-4 text-primary"></i></div>
+        <div>
+            <h1 class="fw-bold mb-0">{{ student.full_name }}</h1>
+            <p class="text-muted mb-0">{{ student.email }}</p>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{% url 'students:edit_student' student.id %}" class="btn btn-warning"><i class="bi bi-pencil-square me-1"></i>Edit</a>
+        <a href="{% url 'students:delete_student' student.id %}" class="btn btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
+        <a href="{% url 'students:student_list' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h6 class="mb-0 fw-semibold"><i class="bi bi-person-fill me-1"></i>Personal Information</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Date of Birth</dt>
+                    <dd class="col-sm-8">{{ student.date_of_birth }}</dd>
+                    <dt class="col-sm-4 text-muted">Grade</dt>
+                    <dd class="col-sm-8"><span class="badge bg-light text-dark border">{{ student.get_grade_display }}</span></dd>
+                    <dt class="col-sm-4 text-muted">Status</dt>
+                    <dd class="col-sm-8">
+                        {% if student.is_active %}
+                            <span class="badge bg-success-subtle text-success-emphasis">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary-subtle text-secondary-emphasis">Inactive</span>
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-4 text-muted">Address</dt>
+                    <dd class="col-sm-8">{{ student.address|default:'—' }}</dd>
+                    <dt class="col-sm-4 text-muted">Phone</dt>
+                    <dd class="col-sm-8">{{ student.phone|default:'—' }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h6 class="mb-0 fw-semibold"><i class="bi bi-shield-lock-fill me-1"></i>Parent/Guardian Information</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Name</dt>
+                    <dd class="col-sm-8">{{ student.parent_name|default:'—' }}</dd>
+                    <dt class="col-sm-4 text-muted">Email</dt>
+                    <dd class="col-sm-8">{{ student.parent_email|default:'—' }}</dd>
+                    <dt class="col-sm-4 text-muted">Phone</dt>
+                    <dd class="col-sm-8">{{ student.parent_phone|default:'—' }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
